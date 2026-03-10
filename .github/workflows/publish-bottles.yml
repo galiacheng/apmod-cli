@@ -1,0 +1,84 @@
+name: Publish Homebrew Bottles
+
+on:
+  push:
+    tags:
+      - "*"
+
+jobs:
+  bottle:
+    strategy:
+      matrix:
+        include:
+          - os: ubuntu-latest
+            tag: x86_64_linux
+          - os: macos-13
+            tag: ventura
+          - os: macos-14
+            tag: arm64_sonoma
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
+      - name: Install from formula (build from source)
+        run: brew install --build-from-source Formula/modernize.rb
+
+      - name: Build bottle
+        run: |
+          brew bottle --no-rebuild --json --root-url="https://github.com/galiacheng/apmod-cli/releases/download/${GITHUB_REF_NAME}" Formula/modernize.rb
+          # Rename -- to - in bottle filenames (Homebrew convention)
+          for f in modernize--*.bottle.tar.gz; do
+            mv "$f" "${f//--/-}"
+          done
+
+      - name: Upload bottle as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: bottle-${{ matrix.tag }}
+          path: "*.bottle.tar.gz"
+
+      - name: Upload bottle JSON as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: bottle-json-${{ matrix.tag }}
+          path: "*.bottle.json"
+
+  update-formula:
+    needs: bottle
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: bottle-*
+          merge-multiple: true
+
+      - name: Upload bottles to GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: "*.bottle.tar.gz"
+
+      - name: Set up Homebrew
+        uses: Homebrew/actions/setup-homebrew@master
+
+      - name: Update formula with bottle block
+        run: |
+          # Merge all bottle JSON files and update the formula
+          brew bottle --merge --write --no-commit *.bottle.json
+          cat Formula/modernize.rb
+
+      - name: Commit and push updated formula
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add Formula/modernize.rb
+          git commit -m "Update bottle block for ${GITHUB_REF_NAME}" || echo "No changes to commit"
+          git push origin HEAD:main

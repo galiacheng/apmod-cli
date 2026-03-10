@@ -2,7 +2,6 @@ class Modernize < Formula
   desc "AI-powered CLI for application modernization"
   homepage "https://github.com/galiacheng/apmod-cli"
   version "0.0.211"
-  bottle :unneeded
 
   if OS.mac?
     if Hardware::CPU.intel?
