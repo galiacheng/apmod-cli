@@ -21,7 +21,7 @@ class Modernize < Formula
     end
   end
 
-  license :cannot_represent
+  license "MIT"
 
   def install
     libexec.install "modernize"
