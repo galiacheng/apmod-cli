@@ -22,6 +22,8 @@ class Modernize < Formula
 
   version "0.0.211"
 
+  bottle :unneeded
+
   license :cannot_represent
   # Proprietary — see https://github.com/galiacheng/apmod-cli/blob/HEAD/LICENSE.txt
 
