@@ -1,23 +1,23 @@
 class Modernize < Formula
   desc "AI-powered CLI for application modernization"
   homepage "https://github.com/galiacheng/apmod-cli"
-  version "0.0.211"
+  version "0.0.226"
 
   if OS.mac?
     if Hardware::CPU.intel?
-      url "https://github.com/galiacheng/apmod-cli/releases/download/0.0.211/modernize_0.0.211_darwin_x64.tar.gz"
-      sha256 "472e12f37471f25de62431200b7466629a210a9d99854f979bc1c9bf988f1ee8"
+      url "https://github.com/microsoft/modernize-cli/releases/download/v0.0.226/modernize_0.0.226_darwin_x64.tar.gz"
+      sha256 "b18a7de04f36cb0236f122af0417110f9b2a7f7daa03ef6a130e8d837de7754e"
     elsif Hardware::CPU.arm?
-      url "https://github.com/galiacheng/apmod-cli/releases/download/0.0.211/modernize_0.0.211_darwin_arm64.tar.gz"
-      sha256 "04f23f2c57525a851ab270e3ae1c54fd5cfefd261279d711bba6c5e251df89c2"
+      url "https://github.com/microsoft/modernize-cli/releases/download/v0.0.226/modernize_0.0.226_darwin_arm64.tar.gz"
+      sha256 "786c7ae517a19c329702e977c0e871e3b503b31a87bc04f8024fabb18f6c7629"
     end
   elsif OS.linux?
     if Hardware::CPU.intel?
-      url "https://github.com/galiacheng/apmod-cli/releases/download/0.0.211/modernize_0.0.211_linux_x64.tar.gz"
-      sha256 "3b417f9df6cbedc2976655d2ca1ad4f867f49acd8e58ed18c5a1c027912e64cf"
+      url "https://github.com/microsoft/modernize-cli/releases/download/v0.0.226/modernize_0.0.226_linux_x64.tar.gz"
+      sha256 "fdc582131e933f8fbe978da7601c9d2cdf40044305adc93c668ab501dee11f58"
     elsif Hardware::CPU.arm?
-      url "https://github.com/galiacheng/apmod-cli/releases/download/0.0.211/modernize_0.0.211_linux_arm64.tar.gz"
-      sha256 "a587212eb4378f94fc3a4f827aa72f8aa70d97b758b107130a8e7f3562a83dac"
+      url "https://github.com/microsoft/modernize-cli/releases/download/v0.0.226/modernize_0.0.226_linux_arm64.tar.gz"
+      sha256 "426b254c7808d8cdd482468b754815872993a85b4b9b2ed14871438700aa15fa"
     end
   end
 
