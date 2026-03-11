@@ -1,8 +1,8 @@
 class AppmodCli < Formula
   desc "CLI tool for Java application modernization"
   homepage "https://github.com/galiacheng/apmod-cli"
-  url "https://github.com/galiacheng/apmod-cli/releases/download/0.0.211/modernize_0.0.211_linux_x64.tar.gz"
-  sha256 "3b417f9df6cbedc2976655d2ca1ad4f867f49acd8e58ed18c5a1c027912e64cf"
+  url "https://github.com/microsoft/modernize-cli/releases/download/v0.0.226/modernize_0.0.226_linux_x64.tar.gz"
+  sha256 "fdc582131e933f8fbe978da7601c9d2cdf40044305adc93c668ab501dee11f58"
   license "MIT"
 
   def install
